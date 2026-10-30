@@ -1,0 +1,35 @@
+# Supervised baseline for every SSL comparison.
+# Same ResNet-18, same 128px, same split, same epoch budget as the fine-tunes.
+# Weights are random. Nothing is loaded from ImageNet.
+experiment:
+  name: resnet18_supervised
+  notes: From-scratch ResNet-18. The baseline SSL has to beat.
+  mode: supervised
+  seed: 0
+
+data:
+  img_size: 128
+  batch_size: 64
+
+augment:
+  train_crop_scale: [0.65, 1.0]
+  hflip: 0.5
+  color_jitter: 0.2
+  jitter_hue: 0.05
+  jitter_p: 1.0
+  grayscale_p: 0.0
+  blur_p: 0.0
+  random_erasing: 0.1
+
+model:
+  name: resnet18
+  dropout: 0.0
+  freeze_encoder: false
+
+optim:
+  lr: 0.001
+  head_lr_mult: 1.0
+  weight_decay: 0.01
+  warmup_epochs: 5
+  epochs: 50
+  label_smoothing: 0.1

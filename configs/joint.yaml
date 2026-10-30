@@ -1,0 +1,47 @@
+# Joint objective: cross-entropy on both views, plus lambda * NT-Xent.
+# Every training image already has a label (150 per class). Throwing those
+# labels away for a pure SimCLR stage is optional. This run keeps them and
+# adds the agreement-between-views term as a regularizer.
+#
+# The augmentation here is the SimCLR view policy, not the baseline policy.
+# That is a real confound: if this wins, it wins on loss and augmentation
+# together. Say so in the report. Do not describe it as "the same training
+# with one extra loss."
+experiment:
+  name: joint
+  notes: CE on both views plus 0.2 * NT-Xent. SimCLR augmentation.
+  mode: joint
+  seed: 0
+
+data:
+  img_size: 128
+  batch_size: 64
+
+augment:
+  train_crop_scale: [0.3, 1.0]
+  hflip: 0.5
+  color_jitter: 0.4
+  jitter_hue: 0.1
+  jitter_p: 0.8
+  grayscale_p: 0.2
+  blur_p: 0.5
+  random_erasing: 0.0
+
+model:
+  name: resnet18
+  dropout: 0.0
+  freeze_encoder: false
+
+ssl:
+  temperature: 0.2
+  proj_hidden: 512
+  proj_dim: 128
+  lambda_contrast: 0.2
+
+optim:
+  lr: 0.001
+  head_lr_mult: 1.0
+  weight_decay: 0.01
+  warmup_epochs: 5
+  epochs: 50
+  label_smoothing: 0.1

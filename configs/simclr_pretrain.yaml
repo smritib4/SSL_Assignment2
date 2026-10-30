@@ -1,0 +1,46 @@
+# SimCLR pretraining on the training split only.
+# The validation images are held out. There is no classification loss here, so
+# this run does not produce a validation accuracy. Fine-tune afterwards.
+#
+# Augmentation is the SimCLR view policy adapted to scenes: crops from 30% of
+# the image rather than SimCLR's 8%, because these categories are scenes, not
+# objects, and a tiny crop often leaves the class out of frame. Colour jitter,
+# grayscale, and blur stay, so the two views are not identical. Random erasing
+# stays off.
+experiment:
+  name: simclr_pretrain
+  notes: SimCLR NT-Xent on ResNet-18 from scratch. Encoder is what gets transferred.
+  mode: pretrain
+  seed: 0
+
+data:
+  img_size: 128
+  batch_size: 128
+
+augment:
+  train_crop_scale: [0.3, 1.0]
+  hflip: 0.5
+  color_jitter: 0.4
+  jitter_hue: 0.1
+  jitter_p: 0.8
+  grayscale_p: 0.2
+  blur_p: 0.5
+  random_erasing: 0.0
+
+model:
+  name: resnet18
+  dropout: 0.0
+  freeze_encoder: false
+
+ssl:
+  temperature: 0.2
+  proj_hidden: 512
+  proj_dim: 128
+
+optim:
+  lr: 0.001
+  head_lr_mult: 1.0
+  weight_decay: 0.0001
+  warmup_epochs: 10
+  epochs: 100
+  label_smoothing: 0.0

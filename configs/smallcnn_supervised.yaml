@@ -1,0 +1,35 @@
+# Bridge to Assignment 1. Same architecture as the from-scratch SmallCNN that
+# reached 89.38% validation: 128px, crop+flip only, dropout 0.2, AdamW 1e-3,
+# weight decay 0.01, 60 epochs, no label smoothing. A match near that number
+# means this codebase sees the same split. It is not the SSL control.
+experiment:
+  name: smallcnn_supervised
+  notes: Reproduce the Assignment 1 from-scratch CNN. No SSL, no pretrained weights.
+  mode: supervised
+  seed: 0
+
+data:
+  img_size: 128
+  batch_size: 64
+
+augment:
+  train_crop_scale: [0.65, 1.0]
+  hflip: 0.5
+  color_jitter: 0.0
+  jitter_p: 0.0
+  grayscale_p: 0.0
+  blur_p: 0.0
+  random_erasing: 0.0
+
+model:
+  name: smallcnn
+  dropout: 0.2
+  freeze_encoder: false
+
+optim:
+  lr: 0.001
+  head_lr_mult: 1.0
+  weight_decay: 0.01
+  warmup_epochs: 3
+  epochs: 60
+  label_smoothing: 0.0

@@ -1,0 +1,49 @@
+# Candidate best recipe, pending the validation table.
+#
+# Prior, from Assignment 1: with 1,920 labelled images a from-scratch CNN
+# already reaches the high 80s, and the labels are informative. Pure SSL
+# throws those labels away. Joint training keeps the classification loss and
+# uses NT-Xent only as a regularizer, which is the strategy most likely to
+# help when every image is already labelled.
+#
+# If the ladder disagrees, change this file to the winning recipe and rerun
+# it under experiment.name=best before scoring the test set. Do not leave
+# this file describing a run you did not select.
+experiment:
+  name: best
+  notes: Joint CE + NT-Xent. Confirm against the validation table before calling it best.
+  mode: joint
+  seed: 0
+
+data:
+  img_size: 128
+  batch_size: 64
+
+augment:
+  train_crop_scale: [0.3, 1.0]
+  hflip: 0.5
+  color_jitter: 0.4
+  jitter_hue: 0.1
+  jitter_p: 0.8
+  grayscale_p: 0.2
+  blur_p: 0.5
+  random_erasing: 0.0
+
+model:
+  name: resnet18
+  dropout: 0.0
+  freeze_encoder: false
+
+ssl:
+  temperature: 0.2
+  proj_hidden: 512
+  proj_dim: 128
+  lambda_contrast: 0.2
+
+optim:
+  lr: 0.001
+  head_lr_mult: 1.0
+  weight_decay: 0.01
+  warmup_epochs: 5
+  epochs: 50
+  label_smoothing: 0.1

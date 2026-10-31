@@ -85,7 +85,7 @@ All of these use seed 0 and the same split, except where a row says otherwise.
 | `configs/simclr_finetune_matched.yaml` | Same recipe as the baseline. Only the encoder init changes. |
 | `configs/simclr_finetune.yaml` | Same init, but backbone LR 1e-4 and head LR 1e-3. |
 | `configs/joint.yaml` | Cross-entropy plus 0.2 * NT-Xent for 50 epochs. |
-| `configs/best.yaml` | Starts as a copy of the joint recipe. Change it if validation picks another row. |
+| `configs/best.yaml` | The validation winner: same recipe as `configs/simclr_finetune.yaml`. Scored weights are `runs/simclr_finetune_seed0/best.pt`. |
 
 `scripts/make_report_table.py` prints the table from `experiments/results/results.csv`
 and names the validation leader. Differences under about one point on 480
@@ -123,6 +123,16 @@ Pipeline check without the real images:
 ```bash
 python scripts/make_dummy_data.py --out data_dummy
 python train.py --config configs/smoke.yaml
+```
+
+## Checkpoint
+
+The scored checkpoint is `runs/simclr_finetune_seed0/best.pt`. It is the SimCLR fine-tune with backbone learning rate 1e-4 and head learning rate 1e-3. Validation accuracy was 83.96%. Test accuracy was 77.50%.
+
+Download: https://drive.google.com/file/d/1Z_jriKslHhRE8CnO6s7U6Ldp7GEvdcph/view?usp=sharing
+
+```bash
+python evaluate.py --checkpoint runs/simclr_finetune_seed0/best.pt --split test
 ```
 
 ## Layout

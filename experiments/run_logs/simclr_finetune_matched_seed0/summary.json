@@ -1,0 +1,24 @@
+{
+  "experiment": "simclr_finetune_matched",
+  "mode": "supervised",
+  "model": "resnet18",
+  "epochs_completed": 50,
+  "interrupted": false,
+  "best_epoch": 41,
+  "best_val_acc": 0.83125,
+  "best_top5": 0.9833333333333333,
+  "train_time_s": 318.5,
+  "checkpoint": "runs/simclr_finetune_matched_seed0/best.pt",
+  "trainable_params": 11184720,
+  "environment": {
+    "timestamp": "2026-10-31T00:33:41",
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "cuda": true,
+    "gpu": "Tesla T4",
+    "torchvision": "0.26.0+cu130",
+    "cuda_version": "13.0"
+  },
+  "notes": "SSL init, otherwise identical to the supervised baseline."
+}

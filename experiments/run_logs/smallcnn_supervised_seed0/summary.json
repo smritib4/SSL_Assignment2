@@ -1,0 +1,24 @@
+{
+  "experiment": "smallcnn_supervised",
+  "mode": "supervised",
+  "model": "smallcnn",
+  "epochs_completed": 60,
+  "interrupted": false,
+  "best_epoch": 54,
+  "best_val_acc": 0.8875,
+  "best_top5": 0.99375,
+  "train_time_s": 337.8,
+  "checkpoint": "runs/smallcnn_supervised_seed0/best.pt",
+  "trainable_params": 4695504,
+  "environment": {
+    "timestamp": "2026-10-30T23:52:34",
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "cuda": true,
+    "gpu": "Tesla T4",
+    "torchvision": "0.26.0+cu130",
+    "cuda_version": "13.0"
+  },
+  "notes": "Reproduce the Assignment 1 from-scratch CNN. No SSL, no pretrained weights."
+}

@@ -1,0 +1,24 @@
+{
+  "experiment": "simclr_pretrain",
+  "mode": "pretrain",
+  "model": "resnet18",
+  "epochs_completed": 100,
+  "interrupted": false,
+  "best_epoch": 100,
+  "best_val_acc": -1.0,
+  "best_top5": 0.0,
+  "train_time_s": 1576.5,
+  "checkpoint": "runs/simclr_pretrain_seed0/last.pt",
+  "trainable_params": 11505344,
+  "environment": {
+    "timestamp": "2026-10-31T00:28:18",
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "cuda": true,
+    "gpu": "Tesla T4",
+    "torchvision": "0.26.0+cu130",
+    "cuda_version": "13.0"
+  },
+  "notes": "SimCLR NT-Xent on ResNet-18 from scratch. Encoder is what gets transferred."
+}

@@ -1,18 +1,10 @@
-# Candidate best recipe, pending the validation table.
-#
-# Prior, from Assignment 1: with 1,920 labelled images a from-scratch CNN
-# already reaches the high 80s, and the labels are informative. Pure SSL
-# throws those labels away. Joint training keeps the classification loss and
-# uses NT-Xent only as a regularizer, which is the strategy most likely to
-# help when every image is already labelled.
-#
-# If the ladder disagrees, change this file to the winning recipe and rerun
-# it under experiment.name=best before scoring the test set. Do not leave
-# this file describing a run you did not select.
+# Validation winner among the ResNet-18 runs: simclr_finetune.
+# Same settings as configs/simclr_finetune.yaml. The scored weights are
+# runs/simclr_finetune_seed0/best.pt. This file was not trained again.
 experiment:
   name: best
-  notes: Joint CE + NT-Xent. Confirm against the validation table before calling it best.
-  mode: joint
+  notes: SSL init, backbone LR 1e-4, head LR 1e-3. Validation winner.
+  mode: supervised
   seed: 0
 
 data:
@@ -20,14 +12,14 @@ data:
   batch_size: 64
 
 augment:
-  train_crop_scale: [0.3, 1.0]
+  train_crop_scale: [0.65, 1.0]
   hflip: 0.5
-  color_jitter: 0.4
-  jitter_hue: 0.1
-  jitter_p: 0.8
-  grayscale_p: 0.2
-  blur_p: 0.5
-  random_erasing: 0.0
+  color_jitter: 0.2
+  jitter_hue: 0.05
+  jitter_p: 1.0
+  grayscale_p: 0.0
+  blur_p: 0.0
+  random_erasing: 0.1
 
 model:
   name: resnet18
@@ -35,15 +27,12 @@ model:
   freeze_encoder: false
 
 ssl:
-  temperature: 0.2
-  proj_hidden: 512
-  proj_dim: 128
-  lambda_contrast: 0.2
+  init_checkpoint: runs/simclr_pretrain_seed0/last.pt
 
 optim:
-  lr: 0.001
-  head_lr_mult: 1.0
+  lr: 0.0001
+  head_lr_mult: 10.0
   weight_decay: 0.01
-  warmup_epochs: 5
+  warmup_epochs: 3
   epochs: 50
   label_smoothing: 0.1

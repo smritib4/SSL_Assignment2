@@ -1,0 +1,7 @@
+experiment,seed,mode,model,img_size,epochs,epochs_completed,interrupted,freeze_encoder,init_checkpoint,params_trainable,best_epoch,val_acc,val_top5,ssl_loss,train_time_s,run_dir
+smallcnn_supervised,0,supervised,smallcnn,128,60,60,False,False,,4695504,54,0.8875,0.9938,,337.8,runs/smallcnn_supervised_seed0
+resnet18_supervised,0,supervised,resnet18,128,50,50,False,False,,11184720,45,0.7958,0.9750,,314.6,runs/resnet18_supervised_seed0
+simclr_pretrain,0,pretrain,resnet18,128,100,100,False,False,,11505344,100,,,1.7371691385904948,1576.5,runs/simclr_pretrain_seed0
+simclr_finetune_matched,0,supervised,resnet18,128,50,50,False,False,runs/simclr_pretrain_seed0/last.pt,11184720,41,0.8313,0.9833,,318.5,runs/simclr_finetune_matched_seed0
+simclr_finetune,0,supervised,resnet18,128,50,50,False,False,runs/simclr_pretrain_seed0/last.pt,11184720,28,0.8396,0.9688,,322.9,runs/simclr_finetune_seed0
+joint,0,joint,resnet18,128,50,50,False,False,,11513552,43,0.8146,0.9667,,834.4,runs/joint_seed0

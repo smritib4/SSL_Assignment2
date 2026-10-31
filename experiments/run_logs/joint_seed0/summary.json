@@ -1,0 +1,24 @@
+{
+  "experiment": "joint",
+  "mode": "joint",
+  "model": "resnet18",
+  "epochs_completed": 50,
+  "interrupted": false,
+  "best_epoch": 43,
+  "best_val_acc": 0.8145833333333333,
+  "best_top5": 0.9666666666666667,
+  "train_time_s": 834.4,
+  "checkpoint": "runs/joint_seed0/best.pt",
+  "trainable_params": 11513552,
+  "environment": {
+    "timestamp": "2026-10-31T00:53:07",
+    "python": "3.13.16",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "torch": "2.11.0+cu130",
+    "cuda": true,
+    "gpu": "Tesla T4",
+    "torchvision": "0.26.0+cu130",
+    "cuda_version": "13.0"
+  },
+  "notes": "CE on both views plus 0.2 * NT-Xent. SimCLR augmentation."
+}

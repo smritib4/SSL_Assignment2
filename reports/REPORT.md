@@ -7,14 +7,15 @@
 
 | | |
 |---|---|
-| **Test accuracy** | **77.50%** (310 of 400), top-5 98.50% |
+| **Highest test accuracy measured** | **78.75%** (joint training, 315 of 400) |
+| Selected model test accuracy | 77.50% (310 of 400), top-5 98.50% |
 | Validation accuracy of the selected model | 83.96% |
 | Model | ResNet-18, `weights=None`, 11.2M parameters, all trained |
 | Input | 128 x 128 RGB. Pretrain 26 min, fine-tune 5 min, one Tesla T4 |
 | Reproduce | `python evaluate.py --checkpoint runs/simclr_finetune_seed0/best.pt --split test` |
 | Checkpoint | https://drive.google.com/file/d/1Z_jriKslHhRE8CnO6s7U6Ldp7GEvdcph/view?usp=sharing |
 
-The from-scratch ResNet-18 baseline scores 75.00% test on the same split, so this is +2.50 points. Assignment 1's 96.75% used an ImageNet ConvNeXt and is not a legal comparison here.
+The supervised baseline is the same ResNet-18 at 128px, trained with cross-entropy only: AdamW at 1e-3, weight decay 0.01, cosine decay with 5 warmup epochs, label smoothing 0.1, 50 epochs, crop scale 0.65 to 1.0, horizontal flip, mild colour jitter, and random erasing. It scores 75.00% test. The selected model is +2.50 points over that baseline. Assignment 1's 96.75% used an ImageNet ConvNeXt and is not a legal comparison here.
 
 How I validated. Same stratified 80/20 split as Assignment 1, seed 0, so each class contributes 30 of the 480 validation images. The selection rule was fixed first: highest validation accuracy among finished ResNet-18 runs. A gap under about 1 point is a tie, because Assignment 1 measured a same-seed spread of 0.62 points on this validation set. The test set was scored after that choice. Joint training then scored 78.75% test, 1.25 points above the selected model. That is five images. I did not replace the checkpoint.
 
